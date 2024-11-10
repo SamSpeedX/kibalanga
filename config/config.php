@@ -1,5 +1,4 @@
 <?php
-
 return [
     'app' => [
         'name' => getenv('APP_NAME'),
@@ -13,9 +12,6 @@ return [
         'database' => getenv('DB_DATABASE'),
         'username' => getenv('DB_USERNAME'),
         'password' => getenv('DB_PASSWORD'),
-    ],
-    'cache' => [
-        'driver' => getenv('CACHE_DRIVER'),
     ],
     'session' => [
         'driver' => getenv('SESSION_DRIVER'),
