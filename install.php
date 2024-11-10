@@ -17,6 +17,11 @@ createDirectory(__DIR__ . '/app/Views');
 createDirectory(__DIR__ . '/public/css');
 createDirectory(__DIR__ . '/public/js');
 
+if (!file_exists('.env')) {
+    copy('.env.example', '.env');
+    echo ".env file created\n";
+}
+
 // Step 2: Check for config file and create if not exists
 $configFile = __DIR__ . '/config/config.php';
 if (!file_exists($configFile)) {
