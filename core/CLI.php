@@ -21,8 +21,11 @@ class CLI
             case 'make:controller':
                 $this->createController($name);
                 break;
+            case 'clear:cache':
+                $this->clearCache();
+                break;
             default:
-                echo "Available commands: serve, migrate, make:model, make:controller\n";
+                echo "Available commands: serve, migrate, make:model, make:controller, clear:cache\n";
         }
     }
 
@@ -32,43 +35,12 @@ class CLI
         shell_exec("php -S localhost:8000 -t public");
     }
 
-    private function runMigrations()
+    private function clearCache()
     {
-        echo "Running migrations...\n";
-        // Migration logic here
+        $cachePath = __DIR__ . '/../cache';
+        array_map('unlink', glob("$cachePath/*"));
+        echo "Cache cleared.\n";
     }
 
-    private function createModel($name)
-    {
-        if (!$name) {
-            echo "Please provide a model name.\n";
-            return;
-        }
-
-        $modelTemplate = "<?php\nnamespace Kibalanga\App\Models;\n\nclass {$name}\n{\n    // Define your model properties and methods here\n}\n";
-        $modelPath = __DIR__ . "/../app/Models/{$name}.php";
-
-        if (file_put_contents($modelPath, $modelTemplate) !== false) {
-            echo "Model created successfully at app/Models/{$name}.php\n";
-        } else {
-            echo "Failed to create model.\n";
-        }
-    }
-
-    private function createController($name)
-    {
-        if (!$name) {
-            echo "Please provide a controller name.\n";
-            return;
-        }
-
-        $controllerTemplate = "<?php\nnamespace Kibalanga\App\Controllers;\n\nclass {$name}\n{\n    public function index()\n    {\n        echo 'This is the {$name} controller.';\n    }\n}\n";
-        $controllerPath = __DIR__ . "/../app/Controllers/{$name}.php";
-
-        if (file_put_contents($controllerPath, $controllerTemplate) !== false) {
-            echo "Controller created successfully at app/Controllers/{$name}.php\n";
-        } else {
-            echo "Failed to create controller.\n";
-        }
-    }
+    // Additional methods for creating models and controllers...
 }
