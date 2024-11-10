@@ -2,6 +2,7 @@
 namespace Kibalanga\App\Models;
 
 use Kibalanga\Core\Database;
+use PDO;
 
 class UserModel
 {
@@ -9,20 +10,39 @@ class UserModel
 
     public function __construct()
     {
-        // Initialize the database connection
         $this->db = new Database();
     }
 
-    public function getUserByEmail($email)
+    // Register a new user
+    public function register($name, $email, $password)
     {
-        // Get the PDO connection
         $pdo = $this->db->getConnection();
         
-        // Prepare and execute the query securely
+        // Hash the password before saving
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        
+        // Insert user into the database
+        $stmt = $pdo->prepare('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
+        $stmt->execute(['name' => $name, 'email' => $email, 'password' => $hashedPassword]);
+
+        return $pdo->lastInsertId();  // Return the inserted user ID
+    }
+
+    // Log a user in
+    public function login($email, $password)
+    {
+        $pdo = $this->db->getConnection();
+        
+        // Fetch the user by email
         $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
         $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        // Fetch the result
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        // Check if the user exists and verify the password
+        if ($user && password_verify($password, $user['password'])) {
+            return $user;  // Return the user data if login is successful
+        }
+        
+        return false;  // Return false if login fails
     }
 }
