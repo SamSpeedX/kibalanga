@@ -6,58 +6,37 @@ class CLI
     public function handle($argv)
     {
         $command = $argv[1] ?? null;
-        $name = $argv[2] ?? null;
 
         switch ($command) {
-            case 'serve':
-                $this->serve();
-                break;
-            case 'migrate':
-                $this->runMigrations();
-                break;
             case 'make:model':
-                $this->createModel($name);
+                $this->createModel($argv[2]);
                 break;
             case 'make:controller':
-                $this->createController($name);
+                $this->createController($argv[2]);
                 break;
             case 'make:view':
-                $this->createView($name);
-                break;
-            case 'clear:cache':
-                $this->clearCache();
+                $this->createView($argv[2]);
                 break;
             default:
-                echo "Available commands: serve, migrate, make:model, make:controller, make:view, clear:cache\n";
+                echo "Command not recognized\n";
         }
     }
 
-    private function serve()
+    protected function createModel($name)
     {
-        echo "Starting server on http://localhost:8000\n";
-        shell_exec("php -S localhost:8000 -t public");
+        file_put_contents(__DIR__ . '/../app/Models/' . $name . '.php', "<?php\n\nclass $name {}");
+        echo "Model $name created!\n";
     }
 
-    private function clearCache()
+    protected function createController($name)
     {
-        $cachePath = __DIR__ . '/../cache';
-        array_map('unlink', glob("$cachePath/*"));
-        echo "Cache cleared.\n";
+        file_put_contents(__DIR__ . '/../app/Controllers/' . $name . 'Controller.php', "<?php\n\nnamespace Kibalanga\\App\\Controllers;\n\nuse Kibalanga\\Core\\Controller;\n\nclass {$name}Controller extends Controller\n{\n    public function index()\n    {\n        \$this->render('{$name}');\n    }\n}\n");
+        echo "Controller $name created!\n";
     }
 
-    private function createView($viewName)
+    protected function createView($name)
     {
-        $viewDirectory = __DIR__ . '/../app/Views/';
-        $viewFile = $viewDirectory . $viewName . '.sam.php';
-
-        if (file_exists($viewFile)) {
-            echo "View file {$viewName}.sam.php already exists.\n";
-        } else {
-            // Create a simple default view template
-            $content = "<!-- View: {$viewName}.sam.php -->\n";
-            $content .= "<h1>Hello from {$viewName} view!</h1>\n";
-            file_put_contents($viewFile, $content);
-            echo "View file created at {$viewFile}\n";
-        }
+        file_put_contents(__DIR__ . '/../app/Views/' . $name . '.sam.php', "<html><body><h1>Welcome to $name View!</h1></body></html>");
+        echo "View $name.sam.php created!\n";
     }
 }
