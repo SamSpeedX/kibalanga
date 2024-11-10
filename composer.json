@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Kibalanga\\": "core/",
+            "Kibalanga\\App\\": "app/"
+        }
+    }
+}
