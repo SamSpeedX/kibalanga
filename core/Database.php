@@ -1,31 +1,38 @@
 <?php
 namespace Kibalanga\Core;
 
+use PDO;
+use PDOException;
+
 class Database
 {
-    private $connection;
+    private $pdo;
 
-    public function __construct($config)
+    public function __construct()
     {
-        $this->connection = new \mysqli(
-            $config['host'],
-            $config['username'],
-            $config['password'],
-            $config['database']
-        );
-
-        if ($this->connection->connect_error) {
-            die("Connection failed: " . $this->connection->connect_error);
+        try {
+            $this->pdo = new PDO(
+                'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_DATABASE'),
+                getenv('DB_USERNAME'),
+                getenv('DB_PASSWORD')
+            );
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die('Database connection failed: ' . $e->getMessage());
         }
     }
 
-    public function query($sql)
+    // Method to get the PDO connection
+    public function getConnection()
     {
-        return $this->connection->query($sql);
+        return $this->pdo;
     }
 
-    public function close()
+    // Example of executing a query
+    public function query($sql, $params = [])
     {
-        $this->connection->close();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt;
     }
 }
