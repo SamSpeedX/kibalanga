@@ -107,8 +107,8 @@ Before installing **Kibalanga**, make sure you have the following software insta
 - **CLI Tools**: You can use CLI tools to create models, controllers, and more. Example:
   
   ```bash
-  php kibalanga-cli make:model User
-  php kibalanga-cli make:controller AuthController
+  php kibalanga make:model User
+  php kibalanga make:controller AuthController
   ```
 
 - **Authentication**: The framework supports user registration and login. Simply use the `AuthController` for handling user authentication.
@@ -156,7 +156,7 @@ This will generate a new controller file inside the `/app/Controllers` directory
 ### Create a New Model
 
 ```bash
-php kibalanga-cli make:model User
+php kibalanga make:model User
 ```
 
 This will generate a new model file inside the `/app/Models` directory.
@@ -190,7 +190,7 @@ Please ensure that your code adheres to the PHP coding standards and that all te
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License.
 
 ---
 
