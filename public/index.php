@@ -1,13 +1,12 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Kibalanga\Core\Kibalanga;
+use Kibalanga\Core\Router;
+use Kibalanga\App\Controllers\HomeController;
 
-$config = require __DIR__ . '/../config/config.php';
-$app = new Kibalanga($config);
+$router = new Router();
 
-// Define routes
-$app->router->add('/', [new \Kibalanga\App\Controllers\HomeController(), 'index']);
+$router->add('GET', '/', [new HomeController(), 'index']);
+$router->add('GET', '/about', [new HomeController(), 'about']);
 
-// Run the application
-$app->run();
+$router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
