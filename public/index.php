@@ -1,13 +1,20 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../bootstrap.php';
 
+use Kibalanga\Core\Route;
+use Kibalanga\Core\Session;
 use Kibalanga\Core\Router;
-use Kibalanga\App\Controllers\WelcomeController;
+
+// Start the session securely
+session_start();
+
+// Sanitize global input to prevent injection attacks
+$_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 $router = new Router();
 
-// Route for the home page
-$router->add('GET', '/', [new WelcomeController(), 'index']);
+// Define routes
+$router->get('/', 'WelcomeController@index');
 
-// Handle requests
-$router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+$router->dispatch();  // Dispatch the request to the controller
