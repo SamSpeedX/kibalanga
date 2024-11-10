@@ -1,5 +1,3 @@
----
-
 # Kibalanga PHP Framework
 
 **Kibalanga** is a simple, secure, and lightweight PHP framework designed to help developers quickly build scalable web applications. It provides an easy-to-use structure for creating MVC-based applications with a focus on security, performance, and extendability.
@@ -71,7 +69,7 @@ Before installing **Kibalanga**, make sure you have the following software insta
    If your application has migrations, you can run them to create the necessary tables in your database:
    
    ```bash
-   php artisan migrate
+   php kibalanga migrate
    ```
 
 6. **Set file permissions** (Linux/Unix users):
