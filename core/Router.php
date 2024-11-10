@@ -3,19 +3,24 @@ namespace Kibalanga\Core;
 
 class Router
 {
-    protected $routes = [];
+    private $routes = [];
 
-    public function add($path, $callback)
+    public function add($method, $path, $callback)
     {
-        $this->routes[$path] = $callback;
+        $this->routes[] = [
+            'method' => $method,
+            'path' => $path,
+            'callback' => $callback,
+        ];
     }
 
-    public function resolve($path)
+    public function handle($requestUri, $requestMethod)
     {
-        if (isset($this->routes[$path])) {
-            call_user_func($this->routes[$path]);
-        } else {
-            echo "404 Not Found";
+        foreach ($this->routes as $route) {
+            if ($route['path'] === $requestUri && $route['method'] === $requestMethod) {
+                return call_user_func($route['callback']);
+            }
         }
+        echo "404 Not Found";
     }
 }
