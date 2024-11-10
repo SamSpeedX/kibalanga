@@ -7,7 +7,6 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        // Render the welcome view
-        $this->render('welcome');
+        $this->render('welcome Kibalanga Php framework');
     }
 }
