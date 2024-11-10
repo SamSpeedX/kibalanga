@@ -5,15 +5,12 @@ class Controller
 {
     public function render($view, $data = [])
     {
-        // Add .sam.php extension automatically
-        $viewFile = __DIR__ . "/../app/Views/{$view}.sam.php";
-
-        // Check if the view exists
-        if (file_exists($viewFile)) {
-            extract($data); // Extract data for use in view
-            require $viewFile;
+        $viewPath = __DIR__ . "/../app/Views/{$view}.sam.php";
+        if (file_exists($viewPath)) {
+            extract($data);
+            require $viewPath;
         } else {
-            echo "View file not found: {$viewFile}\n";
+            echo "View not found!";
         }
     }
 }
