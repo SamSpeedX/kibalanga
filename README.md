@@ -1,5 +1,3 @@
-Here’s an example of a `README.md` for your **Kibalanga** PHP framework GitHub repository. This file will serve as a guide for anyone interested in using or contributing to the project.
-
 ---
 
 # Kibalanga PHP Framework
@@ -198,4 +196,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ---
 
-Let me know if you need any more specific instructions or customizations!
