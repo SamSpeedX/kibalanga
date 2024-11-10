@@ -14,7 +14,8 @@ $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 $router = new Router();
 
-// Define routes
 $router->get('/', 'WelcomeController@index');
+
+$router->get('/user/{email}', 'UserController@show');
 
 $router->dispatch();  // Dispatch the request to the controller
