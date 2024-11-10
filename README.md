@@ -22,12 +22,12 @@ Before installing **Kibalanga**, make sure you have the following software insta
 
 ### Steps to Install
 
-1. **Clone the repository**:
+1. **Fork or Clone the repository**:
 
-   If you haven't already, clone the repository:
+   If you haven't already, [ Fork ](https://github.com/SamTechnologyTz/kibalanga/fork) and clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/kibalanga.git
+   git clone https://github.com/SamTechnologyTz/kibalanga
    cd kibalanga
    ```
 
