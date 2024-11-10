@@ -21,11 +21,14 @@ class CLI
             case 'make:controller':
                 $this->createController($name);
                 break;
+            case 'make:view':
+                $this->createView($name);
+                break;
             case 'clear:cache':
                 $this->clearCache();
                 break;
             default:
-                echo "Available commands: serve, migrate, make:model, make:controller, clear:cache\n";
+                echo "Available commands: serve, migrate, make:model, make:controller, make:view, clear:cache\n";
         }
     }
 
@@ -42,5 +45,19 @@ class CLI
         echo "Cache cleared.\n";
     }
 
-    // Additional methods for creating models and controllers...
+    private function createView($viewName)
+    {
+        $viewDirectory = __DIR__ . '/../app/Views/';
+        $viewFile = $viewDirectory . $viewName . '.sam.php';
+
+        if (file_exists($viewFile)) {
+            echo "View file {$viewName}.sam.php already exists.\n";
+        } else {
+            // Create a simple default view template
+            $content = "<!-- View: {$viewName}.sam.php -->\n";
+            $content .= "<h1>Hello from {$viewName} view!</h1>\n";
+            file_put_contents($viewFile, $content);
+            echo "View file created at {$viewFile}\n";
+        }
+    }
 }
