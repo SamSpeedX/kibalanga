@@ -1,8 +1,13 @@
 {
-    "autoload": {
-        "psr-4": {
-            "Kibalanga\\": "core/",
-            "Kibalanga\\App\\": "app/"
-        }
+  "name": "kibalanga/framework",
+  "description": "A secure and simple PHP framework",
+  "require": {
+    "vlucas/phpdotenv": "^5.5",
+    "symfony/var-dumper": "^5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kibalanga\\": "app/"
     }
+  }
 }
