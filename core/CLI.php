@@ -14,11 +14,14 @@ class CLI
             case 'make:controller':
                 $this->createController($argv[2]);
                 break;
+            case 'make:migration':
+                $this->migrate();
+                break;
             case 'make:view':
                 $this->createView($argv[2]);
                 break;
             default:
-                echo "Command not recognized\n";
+                echo "help\n";
         }
     }
 
@@ -38,5 +41,11 @@ class CLI
     {
         file_put_contents(__DIR__ . '/../app/Views/' . $name . '.sam.php', "<html><body><h1>Welcome to $name View!</h1></body></html>");
         echo "View $name.sam.php created!\n";
+    }
+
+    protected function migrate()
+    {
+        $migration = new Migration();
+        $migration->run();
     }
 }
